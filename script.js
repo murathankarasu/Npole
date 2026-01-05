@@ -65,30 +65,6 @@ document.querySelectorAll('[data-aos]').forEach(el => {
     observer.observe(el);
 });
 
-// Contact Form Handler
-const contactForm = document.getElementById('contactForm');
-
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Get form values
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value;
-    
-    // Create mailto link
-    const mailtoLink = `mailto:murathan@npole.studio?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-    
-    // Open mail client
-    window.location.href = mailtoLink;
-    
-    // Show success message (optional)
-    alert('Opening your email client...');
-    
-    // Reset form
-    contactForm.reset();
-});
 
 // Add cursor glow effect
 document.addEventListener('mousemove', (e) => {

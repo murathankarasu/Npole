@@ -479,8 +479,20 @@ body {
 }
 
 .value-icon {
-    font-size: 32px;
     min-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--card-border);
+    background: radial-gradient(circle at 30% 30%, rgba(56, 182, 255, 0.15), transparent 60%);
+    color: var(--text-color);
+}
+
+.value-icon svg {
+    width: 24px;
+    height: 24px;
 }
 
 .value-text h4 {
@@ -555,144 +567,64 @@ body {
 }
 
 .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .contact-description {
     color: var(--text-secondary);
     line-height: 1.8;
     margin-top: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     font-size: 16px;
 }
 
-.contact-methods {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.contact-method {
-    display: flex;
-    align-items: start;
+.contact-email {
+    display: inline-flex;
+    align-items: center;
     gap: 20px;
-    padding: 24px;
+    padding: 32px 48px;
     background: var(--card-bg);
     border: 1px solid var(--card-border);
-    border-radius: 16px;
+    border-radius: 24px;
     transition: all 0.3s ease;
 }
 
-.contact-method:hover {
+.contact-email:hover {
     background: rgba(56, 182, 255, 0.05);
     border-color: var(--accent-color);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(56, 182, 255, 0.15);
 }
 
-.method-icon {
-    width: 48px;
-    height: 48px;
+.email-icon {
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(56, 182, 255, 0.1);
-    border-radius: 12px;
+    border-radius: 16px;
     color: var(--accent-color);
+    flex-shrink: 0;
 }
 
-.method-icon svg {
-    width: 24px;
-    height: 24px;
+.email-icon svg {
+    width: 28px;
+    height: 28px;
 }
 
-.method-text h4 {
-    font-size: 16px;
-    margin-bottom: 8px;
+.email-link {
+    font-size: 24px;
+    font-weight: 600;
     color: var(--text-color);
-}
-
-.method-text a,
-.method-text p {
-    color: var(--text-secondary);
     text-decoration: none;
     transition: color 0.3s ease;
-    margin: 0;
 }
 
-.method-text a:hover {
-    color: var(--text-color);
-}
-
-/* Contact Form */
-.contact-form {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 24px;
-    padding: 40px;
-}
-
-.form-group {
-    position: relative;
-    margin-bottom: 32px;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 16px;
-    background: rgba(56, 182, 255, 0.03);
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    color: var(--text-color);
-    font-family: inherit;
-    font-size: 15px;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    background: rgba(56, 182, 255, 0.05);
-}
-
-.form-group label {
-    position: absolute;
-    left: 16px;
-    top: 16px;
-    color: var(--text-secondary);
-    font-size: 15px;
-    transition: all 0.3s ease;
-    pointer-events: none;
-    background: var(--bg-color);
-    padding: 0 4px;
-}
-
-.form-group input:focus + label,
-.form-group textarea:focus + label,
-.form-group input:not(:placeholder-shown) + label,
-.form-group textarea:not(:placeholder-shown) + label {
-    top: -10px;
-    font-size: 12px;
+.email-link:hover {
     color: var(--accent-color);
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-.btn-full {
-    width: 100%;
-    justify-content: center;
-    font-size: 16px;
-}
-
-.btn-full svg {
-    width: 20px;
-    height: 20px;
 }
 
 /* Footer */
@@ -757,6 +689,114 @@ body {
 .footer-bottom p {
     color: var(--text-secondary);
     font-size: 14px;
+}
+
+/* Testimonials / Customer Satisfaction */
+.testimonials {
+    padding: 120px 0;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.metric-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(56, 182, 255, 0.18), transparent 55%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.metric-card:hover::after {
+    opacity: 1;
+}
+
+.metric-label {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.metric-value {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--text-color);
+    margin-bottom: 12px;
+}
+
+.metric-note {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.quote-card {
+    background: linear-gradient(145deg, rgba(56, 182, 255, 0.06), rgba(0, 136, 204, 0.03));
+    border-radius: 20px;
+    border: 1px solid var(--card-border);
+    padding: 28px 24px 24px;
+    position: relative;
+}
+
+.quote-card::before {
+    content: '“';
+    position: absolute;
+    top: 10px;
+    left: 18px;
+    font-size: 52px;
+    line-height: 1;
+    color: rgba(56, 182, 255, 0.2);
+}
+
+.quote-text {
+    position: relative;
+    z-index: 1;
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 18px;
+}
+
+.quote-meta {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.quote-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.quote-role {
+    font-size: 13px;
+    color: var(--text-secondary);
 }
 
 /* Animations */
@@ -836,8 +876,7 @@ body {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-    .about-content,
-    .contact-content {
+    .about-content {
         grid-template-columns: 1fr;
         gap: 60px;
     }
@@ -917,6 +956,15 @@ body {
         gap: 40px;
     }
     
+    .contact-email {
+        flex-direction: column;
+        padding: 32px 32px;
+    }
+    
+    .email-link {
+        font-size: 20px;
+    }
+    
     .footer-content {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -940,9 +988,16 @@ body {
         font-size: 56px;
     }
     
-    .product-card,
-    .contact-form {
+    .product-card {
         padding: 30px 24px;
+    }
+    
+    .contact-email {
+        padding: 24px;
+    }
+    
+    .email-link {
+        font-size: 18px;
     }
 }
 
