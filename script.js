@@ -21,13 +21,13 @@ let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
+
     if (currentScroll > 50) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
-    
+
     lastScroll = currentScroll;
 });
 
@@ -67,34 +67,45 @@ document.querySelectorAll('[data-aos]').forEach(el => {
 
 
 // Add cursor glow effect
-document.addEventListener('mousemove', (e) => {
+const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!prefersReducedMotion) {
     const glow = document.createElement('div');
     glow.className = 'cursor-glow';
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
     document.body.appendChild(glow);
-    
-    setTimeout(() => {
-        glow.remove();
-    }, 1000);
-});
 
-// Parallax effect for hero decoration circles
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const circles = document.querySelectorAll('.circle');
-    
-    circles.forEach((circle, index) => {
-        const speed = (index + 1) * 0.05;
-        circle.style.transform = `translateY(${scrolled * speed}px)`;
-    });
-});
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let currentX = targetX;
+    let currentY = targetY;
+    let rafId = null;
+
+    const tick = () => {
+        currentX += (targetX - currentX) * 0.12;
+        currentY += (targetY - currentY) * 0.12;
+
+        glow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate3d(-50%, -50%, 0)`;
+        rafId = requestAnimationFrame(tick);
+    };
+
+    const onPointerMove = (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        if (!rafId) {
+            rafId = requestAnimationFrame(tick);
+        }
+    };
+
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+}
+
+// Parallax effect removed as background circles were deleted for minimalism
 
 // Typing effect for hero title (optional enhancement)
 function typeWriter(element, text, speed = 100) {
     let i = 0;
     element.innerHTML = '';
-    
+
     function type() {
         if (i < text.length) {
             element.innerHTML += text.charAt(i);
@@ -102,7 +113,7 @@ function typeWriter(element, text, speed = 100) {
             setTimeout(type, speed);
         }
     }
-    
+
     type();
 }
 
@@ -111,25 +122,11 @@ window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 });
 
-// Product cards hover effect enhancement
-const productCards = document.querySelectorAll('.product-card');
-
-productCards.forEach(card => {
-    card.addEventListener('mouseenter', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-    });
-});
-
 // Counter animation for stats
 function animateCounter(element, target, duration = 2000) {
     let start = 0;
     const increment = target / (duration / 16);
-    
+
     const timer = setInterval(() => {
         start += increment;
         if (start >= target) {
@@ -164,18 +161,18 @@ document.querySelectorAll('.stat').forEach(stat => {
 const buttons = document.querySelectorAll('.btn');
 
 buttons.forEach(button => {
-    button.addEventListener('mouseenter', function(e) {
+    button.addEventListener('mouseenter', function (e) {
         const rect = this.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         const ripple = document.createElement('span');
         ripple.style.left = x + 'px';
         ripple.style.top = y + 'px';
         ripple.className = 'ripple';
-        
+
         this.appendChild(ripple);
-        
+
         setTimeout(() => ripple.remove(), 600);
     });
 });
@@ -192,7 +189,7 @@ if ('IntersectionObserver' in window) {
             }
         });
     });
-    
+
     document.querySelectorAll('img[data-src]').forEach(img => {
         imageObserver.observe(img);
     });
@@ -202,13 +199,13 @@ if ('IntersectionObserver' in window) {
 window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('section[id]');
     const scrollY = window.pageYOffset;
-    
+
     sections.forEach(section => {
         const sectionHeight = section.offsetHeight;
         const sectionTop = section.offsetTop - 100;
         const sectionId = section.getAttribute('id');
         const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
-        
+
         if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
@@ -220,6 +217,6 @@ window.addEventListener('scroll', () => {
     });
 });
 
-console.log('🚀 NPole - Your attention deserves better');
+console.log('🚀 NPole - Digital Excellence Refined');
 console.log('Website loaded successfully!');
 
